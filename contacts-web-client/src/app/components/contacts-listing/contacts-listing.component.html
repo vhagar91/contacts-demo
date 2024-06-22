@@ -50,14 +50,14 @@
                 <clr-control-error>Required Field</clr-control-error>
             </clr-input-container>
         </form>
-        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessageContactImport">
             <div class="alert-items">
                 <div class="alert-item static">
                     <div class="alert-icon-wrapper">
                         <cds-icon class="alert-icon" shape="check-circle"></cds-icon>
                     </div>
                     <span class="alert-text">
-                        {{errorMessage}}
+                        {{errorMessageContactImport}}
                     </span>
                 </div>
             </div>

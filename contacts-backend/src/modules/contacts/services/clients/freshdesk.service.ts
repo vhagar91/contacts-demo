@@ -19,7 +19,6 @@ export class FreshDeskService {
 
     constructor(private readonly httpService: HttpService) { }
 
-    // Other existing methods...
 
     public async validateFreshdeskOrg(freshdeskOrg: string): Promise<void> {
         try {

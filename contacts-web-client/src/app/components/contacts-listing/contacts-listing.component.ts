@@ -15,7 +15,7 @@ export class ContactsListingComponent {
   users: Contact[] = [];
   modalState = false;
   loading = true;
-  errorMessage: string = "";
+  errorMessageContactImport: string = "";
 
   contanctForm = new FormGroup({
     gitHubUser: new FormControl('', Validators.required),
@@ -32,15 +32,20 @@ export class ContactsListingComponent {
 
   refresh(state: ClrDatagridStateInterface) {
     this.loading = true;
-    // We convert the filters from an array to a map,
-    // because that's what our backend-calling service is expecting
     this.constactsService.getContactList(state.page?.current)
       .subscribe(
-        (response) => {
-          console.log(`Contacts Fetcher ${response.data.length}`);
-          this.users = response.data;
-          this.paginator.totalItems = response.total;
-          this.loading = false;
+        {
+          next: (contacts) => {
+            console.log(`Contacts Fetcher ${contacts.data.length}`);
+            this.users = contacts.data;
+            this.paginator.totalItems = contacts.total;
+          },
+          error: (error) => {
+            this.loading = false;
+          },
+          complete: () => {
+            this.loading = false;
+          }
         }
       );
   }
@@ -59,29 +64,29 @@ export class ContactsListingComponent {
     }
   }
 
-  formClear(){
+  formClear() {
     this.contanctForm.reset();
-    this.errorMessage = '';
+    this.errorMessageContactImport = '';
     this.modalState = false;
   }
 
   handleContactCreationSuccess(newContact: Contact) {
     this.users = upsertObject(this.users, newContact);
     this.paginator.totalItems++;
-    this.modalState = false; 
+    this.modalState = false;
   }
 
   handleContactCreationError(e: any) {
     this.loading = false;
     this.contanctForm.enable();
-    this.errorMessage = e.error.message;
+    this.errorMessageContactImport = e.error.message;
   }
 
   handleContactCreationComplete() {
     this.loading = false;
     this.contanctForm.reset();
     this.contanctForm.enable();
-    this.errorMessage = "";
+    this.errorMessageContactImport = "";
     console.log('completed contact creation');
   }
 
