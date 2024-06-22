@@ -4,7 +4,10 @@
 
 ## Getting started:
 ### Prerequisites
-Podman or Docker installed
+#### 1- Podman or Docker installed
+#### 2- Provide valid values for the following environment variables located on contacts-backend/.env.prod  
+    GITHUB_TOKEN="TOKEN_API_GITHUB"
+    FRESHDESK_TOKEN="FRESHDEKS_API_TOKEN"
 
 ### run app  with:
 first navigate to the base folder of the project 
