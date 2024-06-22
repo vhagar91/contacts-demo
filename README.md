@@ -44,8 +44,8 @@ this will start both the server and the frontend. wait until  start
 Mysql is running on port localhost:3306 can be access via web on localhost port 8080 default credentials are root:example and database server host is mysql_db
 
 #### Backend
-swagger api docs are available on http://localhost:3000/api-docs
+Swagger api docs are available on http://localhost:3000/api-docs
 If need it a new user can be register using swagger try out function
 
-#### frontend
-Fron end will be available on http://localhost:80/
+#### Frontend
+Frontend will be available on http://localhost:80/
