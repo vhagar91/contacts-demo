@@ -10,10 +10,10 @@ services:
       MYSQL_ROOT_HOST: "%"
     command: --default-authentication-plugin=mysql_native_password
     healthcheck:
-      test: "mysqladmin ping -h localhost"
-      interval: 1s
-      timeout: 1s
-      retries: 60
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -pexample"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   adminer:
     image: adminer
     restart: always
@@ -22,13 +22,12 @@ services:
   contacts-backend:
     build: ./contacts-backend
     depends_on:
-      - mysql_db
+      mysql_db:
+        condition: service_healthy
     ports:
       - 3000:3000
     working_dir: /usr/src/app
   web-client:
     build: ./contacts-web-client
-    depends_on:
-      - contacts-backend
     ports:
       - 80:80

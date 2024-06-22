@@ -12,6 +12,9 @@ export class CreateAdminMigration1515769694450 implements MigrationInterface {
                         name: "id",
                         type: "varchar",
                         isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: "uuid",
+                        isNullable: false
                     },
                     {
                         name: "username",
@@ -29,6 +32,10 @@ export class CreateAdminMigration1515769694450 implements MigrationInterface {
                         name: "lastName",
                         type: "varchar",
                     },
+                    {
+                        name: "email",
+                        type: "varchar",
+                    },
                 ],
             }),
             true
@@ -42,14 +49,15 @@ export class CreateAdminMigration1515769694450 implements MigrationInterface {
             lastName
         )
         VALUES (
-            UUID(),
+             UUID(),
             'admin',
             '${adminPassword}',
             'admin@contacts.com',
             'Admin',
             'Contacts'
-        );
-        `)
+        );`)
     }
-    async down(queryRunner: QueryRunner): Promise<void> { }
+    async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable("user");
+    }
 }
