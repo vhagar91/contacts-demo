@@ -2,13 +2,14 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Credentials, User } from '../types/types';
 import { map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    private serverUrl = 'http://localhost:3000';
+    private serverUrl = environment.backendhost;
     private loggedUser!: string;
     private eventEmitter = new EventEmitter();
 

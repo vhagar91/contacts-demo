@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Contact, PaginationResult } from '../types/types';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +9,7 @@ import { Contact, PaginationResult } from '../types/types';
 
 export class ContactsService {
 
-    private serverUrl = 'http://localhost:3000';
+    private serverUrl = environment.backendhost;
 
     constructor(private httpClient: HttpClient) { }
 
