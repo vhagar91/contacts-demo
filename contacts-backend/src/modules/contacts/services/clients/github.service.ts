@@ -27,7 +27,7 @@ export class GitHubService {
                 throw new NotFoundException(`Unable to find user on github`);
             }
             else {
-                throw new HttpException(`Error consuming gitup`, 500);
+                throw new HttpException(`Error consuming github`, 500);
             }
         });
         return data;
