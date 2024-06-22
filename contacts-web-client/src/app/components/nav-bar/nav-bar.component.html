@@ -1,0 +1,22 @@
+<header class="header-6">
+  <div class="branding">
+    <a routerLink="/home" routerLinkActive="active" class="nav-link">
+      <cds-icon shape="user"></cds-icon>
+      <span class="title">Contacts</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <clr-dropdown *ngIf="loggedUser">
+      <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
+        {{loggedUser}}
+        <cds-icon shape="angle" direction="down"></cds-icon>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <a clrDropdownItem (click)="logOut()">Log out</a>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+
+    <a *ngIf="!loggedUser" routerLink="/login" routerLinkActive="active" class="nav-link nav-text">Log In</a>
+
+  </div>
+</header>

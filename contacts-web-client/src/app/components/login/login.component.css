@@ -1,0 +1,9 @@
+.login-wrapper {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: right center;
+  }
+  .login-wrapper .login {
+    min-height: 80vh;
+  }

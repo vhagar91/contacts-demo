@@ -1,0 +1,28 @@
+<div class="login-wrapper">
+    <form class="login" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="login-body">
+            <section class="title">
+                <div class="welcome">Welcome to</div>
+                Contact Demos
+            </section>
+            <div class="login-group">
+                <clr-input-container>
+                    <label class="clr-sr-only">E-mail</label>
+                    <input type="text" autocomplete="username" name="username" clrInput placeholder="Enter username"
+                        formControlName="username" />
+                </clr-input-container>
+                <clr-password-container>
+                    <label class="clr-sr-only">Password</label>
+                    <input type="password" autocomplete="current-password" name="password" clrPassword
+                        placeholder="Enter password" formControlName="password" />
+                </clr-password-container>
+                <div class="error active" *ngIf="error" >Invalid user name or password</div>
+                <button type="submit" class="btn btn-primary">Log in</button>
+                <a href="javascript://" class="signup">Sign up for an account</a>
+            </div>
+        </div>
+        <div class="login-footer">
+            <span class="copyright">2024 My, Inc.</span>
+        </div>
+    </form>
+</div>

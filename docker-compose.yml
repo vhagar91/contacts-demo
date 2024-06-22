@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  mysql_db:
+    image: mysql:8.0.23
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: "contacts"
+      MYSQL_ROOT_PASSWORD: "example"
+      MYSQL_ROOT_HOST: "%"
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: "mysqladmin ping -h localhost"
+      interval: 1s
+      timeout: 1s
+      retries: 60
+    ports:
+      - 3306:3306
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  contacts-backend:
+    build: ./contacts-backend
+    depends_on:
+      - mysql_db
+    ports:
+      - 3000:3000
+    working_dir: /usr/src/app
+  web-client:
+    build: ./contacts-web-client
+    depends_on:
+      - contacts-backend
+    ports:
+      - 80:80

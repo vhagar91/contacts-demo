@@ -1,0 +1,71 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+    <clr-dg-action-bar>
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="modalState = true">
+                <cds-icon shape="plus"></cds-icon>
+                Create Contact From Github
+            </button>
+        </div>
+    </clr-dg-action-bar>
+    <clr-dg-column>User ID</clr-dg-column>
+    <clr-dg-column>Fresh Desk ID</clr-dg-column>
+    <clr-dg-column>Name</clr-dg-column>
+    <clr-dg-column>Email</clr-dg-column>
+    <clr-dg-column>Github Id</clr-dg-column>
+    <clr-dg-column>Github User</clr-dg-column>
+    <clr-dg-column>Creation date</clr-dg-column>
+
+    <clr-dg-row *ngFor="let user of users">
+        <clr-dg-cell>{{ user.id }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.freshdeskId }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.name }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.email || "Not Available" }} </clr-dg-cell>
+        <clr-dg-cell>{{ user.gitHubId }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.githubUser }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.registered | date }}</clr-dg-cell>
+
+    </clr-dg-row>
+    <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="5">
+            <clr-dg-page-size [clrPageSizeOptions]="[5]">Contacts per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} Contacts
+        </clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>
+
+<clr-modal [(clrModalOpen)]="modalState">
+    <h3 class="modal-title">Add Contact</h3>
+
+    <div class="modal-body">
+        <form clrForm [formGroup]="contanctForm">
+            <clr-input-container>
+                <label>GitHub User Name</label>
+                <input clrInput type="text" formControlName="gitHubUser" />
+                <clr-control-error>Required Field</clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Freshdesk Org</label>
+                <input clrInput type="text" formControlName="freshDeskOrg" />
+                <clr-control-error>Required Field</clr-control-error>
+            </clr-input-container>
+        </form>
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+            <div class="alert-items">
+                <div class="alert-item static">
+                    <div class="alert-icon-wrapper">
+                        <cds-icon class="alert-icon" shape="check-circle"></cds-icon>
+                    </div>
+                    <span class="alert-text">
+                        {{errorMessage}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="progress loop" *ngIf="loading">  <progress></progress></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="formClear()">Cancel</button>
+        <button type="button" class="btn btn-primary" [disabled]="!contanctForm.valid" (click)="createContact()">Ok</button>
+    </div>
+</clr-modal>
