@@ -41,6 +41,7 @@ export class ContactsListingComponent {
             this.paginator.totalItems = contacts.total;
           },
           error: (error) => {
+            //TODO Handle Error on interface for end users
             this.loading = false;
           },
           complete: () => {
