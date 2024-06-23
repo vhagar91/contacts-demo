@@ -3,9 +3,9 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './inputs/create.user.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { LocalAuthGuard } from 'src/modules/auth/guards/local.auth.guard';
-import { CurrentUser } from 'src/modules/auth/decorators/current-user.decorator';
-import { AuthenticatedGuard } from 'src/modules/auth/guards/authenticated.guard';
+import { LocalAuthGuard } from '../../modules/auth/guards/local.auth.guard';
+import { CurrentUser } from '../../modules/auth/decorators/current-user.decorator';
+import { AuthenticatedGuard } from '../../modules/auth/guards/authenticated.guard';
 import { LoginUserDto } from './inputs/login.user.dto';
 
 @Controller({

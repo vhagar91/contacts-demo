@@ -4,7 +4,7 @@ import { Repository, SelectQueryBuilder } from "typeorm";
 import { Contact, PaginatedContacts } from "../../entities/contact.entity";
 import { PaginateOptions, paginate } from "../../pagination/paginator";
 import { ListContacts, WhenRegisterFilter } from "../../data_transfer_objs/inputs/list.contacts.dto";
-import { User } from "src/modules/users/entities/user.entity";
+import { User } from "../../../users/entities/user.entity";
 
 
 @Injectable()

@@ -4,7 +4,7 @@ import { GitHubService } from "./clients/github.service";
 import { FreshDeskService } from "./clients/freshdesk.service";
 import { FreshDeskContactPayload } from "../data_transfer_objs/consume/freshdesk.contact.dto";
 import { Contact } from "../entities/contact.entity";
-import { User } from "src/modules/users/entities/user.entity";
+import { User } from "../../users/entities/user.entity";
 import { ListContacts } from "../data_transfer_objs/inputs/list.contacts.dto";
 import { GitHubUser } from "../data_transfer_objs/consume/github.user.dto";
 

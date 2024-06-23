@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { Contact } from "src/modules/contacts/entities/contact.entity";
+import { Contact } from "../../contacts/entities/contact.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

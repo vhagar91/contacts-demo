@@ -1,7 +1,7 @@
 import { registerAs } from "@nestjs/config";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { Contact } from "src/modules/contacts/entities/contact.entity";
-import { User } from "src/modules/users/entities/user.entity";
+import { Contact } from "../modules/contacts/entities/contact.entity";
+import { User } from "../modules/users/entities/user.entity";
 import { CreateAdminMigration1515769694450 } from "./migration/create.admin.migration";
 
 export default registerAs('orm.config', (): TypeOrmModuleOptions => ({
