@@ -63,11 +63,7 @@ export class ContactsService {
     
         try {
             this.logger.debug(`${new Date().toISOString()} Registering new Contact ${contact.name}`);
-            
-            const existingContact = await this.getContactsBaseQuery()
-                .andWhere(`c.gitHubId = ${contact.gitHubId}`)
-                .getOne();
-    
+            const existingContact = await queryRunner.manager.findOne(Contact, { where: { gitHubId: contact.gitHubId } });
             contact.user = createdBy;
     
             if (existingContact) {

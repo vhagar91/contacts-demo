@@ -24,9 +24,10 @@ export class FreshDeskService {
         try {
             await this.seachCompanyByName(freshdeskOrg, 'test');
         } catch (e) {
-            if (e.response.status == 404) {
+            if (e.response && e.response.status == 404) {
                 throw new HttpException(`Invalid Freshdesk Organization ${freshdeskOrg}`, 404);
             } else {
+                this.logger.error(e.message)     
                 throw new HttpException(`Unable to reach freshdesk api`, 500);
             }
         }
