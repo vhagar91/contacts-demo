@@ -5,7 +5,7 @@ import { Contact, PaginatedContacts } from "../../entities/contact.entity";
 import { PaginateOptions, paginate } from "../../pagination/paginator";
 import { ListContacts, WhenRegisterFilter } from "../../data_transfer_objs/inputs/list.contacts.dto";
 import { User } from "../../../users/entities/user.entity";
-
+import { getManager } from 'typeorm';
 
 @Injectable()
 export class ContactsService {
@@ -54,17 +54,38 @@ export class ContactsService {
     }
 
     public async registerContact(contact: Contact, createdBy: User): Promise<Contact> {
-        this.logger.debug(`${new Date().toISOString()} Registering new Contact ${contact.name}`);
-        const existingContact = await this.getContactsBaseQuery().andWhere(
-            `c.gitHubId = ${contact.gitHubId}`
-        ).getOne();
-        contact.user = createdBy;
-        if (existingContact) {
-            contact.id = existingContact.id;
-            contact.registered = new Date();
+        const entityManager = this.contactsRepo.manager;
+    
+        const queryRunner = entityManager.connection.createQueryRunner();
+    
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+    
+        try {
+            this.logger.debug(`${new Date().toISOString()} Registering new Contact ${contact.name}`);
+            
+            const existingContact = await this.getContactsBaseQuery()
+                .andWhere(`c.gitHubId = ${contact.gitHubId}`)
+                .getOne();
+    
+            contact.user = createdBy;
+    
+            if (existingContact) {
+                contact.id = existingContact.id;
+                contact.registered = new Date();
+            }
+    
+            const registeredContact = await queryRunner.manager.save(contact);
+    
+            await queryRunner.commitTransaction();
+            this.logger.debug(`Contact Registered`);
+    
+            return registeredContact;
+        } catch (error) {
+            await queryRunner.rollbackTransaction();
+            throw error;
+        } finally {
+            await queryRunner.release();
         }
-        const registerd = await this.contactsRepo.save(contact);
-        this.logger.debug(`Contact Registerd`);
-        return registerd;
     }
 }
