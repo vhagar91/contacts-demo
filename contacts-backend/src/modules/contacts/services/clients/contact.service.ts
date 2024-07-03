@@ -67,6 +67,7 @@ export class ContactsService {
             contact.user = createdBy;
     
             if (existingContact) {
+                this.logger.debug(`Contact exist on DB`);
                 contact.id = existingContact.id;
                 contact.registered = new Date();
             }

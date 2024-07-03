@@ -132,14 +132,14 @@ export class ContactsBusinessService {
         })
 
         if (contacts.length > 0) {
-            this.logger.log('Updating existing contact Contact on Freshdesk ')
+            this.logger.log(`Updating existing contact Contact on Freshdesk ${newContact.name}`)
             //TODO when updating if contact is in soft deleted contact user should be deleted or restore before updating
             if (contacts[0].active) {
                 return await this.freshDeskService.updateContact(subdomain, contacts[0].id, bodyFormData);
             }
             return contacts[0];
         } else {
-            this.logger.log('Creating new Contact on Freshdesk')
+            this.logger.log(`Creating new Contact on Freshdesk ${newContact.name}`)
             return await this.freshDeskService.createContact(subdomain, bodyFormData);
         }
     }
