@@ -70,7 +70,7 @@ export class ContactsBusinessService {
             return await this.contactsService.registerContact(contact, requestedBy);
         } catch (error) {
             this.logger.error(`Failed to import or update contact in Freshdesk: ${error.message}`);
-            throw new HttpException('Failed to import or update contact in Freshdesk', error.status);
+            throw new HttpException('Failed to import or update contact in Freshdesk', error.status || 500);
         }
     }
 
