@@ -55,28 +55,31 @@ export class ContactsService {
 
     public async registerContact(contact: Contact, createdBy: User): Promise<Contact> {
         const entityManager = this.contactsRepo.manager;
-    
+
         const queryRunner = entityManager.connection.createQueryRunner();
-    
+
         await queryRunner.connect();
         await queryRunner.startTransaction();
-    
+
         try {
             this.logger.debug(`${new Date().toISOString()} Registering new Contact ${contact.name}`);
-            const existingContact = await queryRunner.manager.findOne(Contact, { where: { gitHubId: contact.gitHubId } });
+            const existingContact = await queryRunner.manager.findOne(Contact, {
+                where: { gitHubId: contact.gitHubId },
+                lock: { mode: "pessimistic_read" }
+            });
             contact.user = createdBy;
-    
+
             if (existingContact) {
                 this.logger.debug(`Contact exist on DB`);
                 contact.id = existingContact.id;
                 contact.registered = new Date();
             }
-    
+
             const registeredContact = await queryRunner.manager.save(contact);
-    
+
             await queryRunner.commitTransaction();
             this.logger.debug(`Contact Registered`);
-    
+
             return registeredContact;
         } catch (error) {
             await queryRunner.rollbackTransaction();

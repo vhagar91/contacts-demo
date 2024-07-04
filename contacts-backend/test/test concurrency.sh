@@ -7,7 +7,7 @@ concurrency=5
 url='http://localhost:3000/api/v1/contacts'
 
 # Payload data
-payload='{"github_username": "chino", "fresdesk_subdomain": "quickbase4553"}'
+payload='{"github_username": "sdax", "fresdesk_subdomain": "quickbase4553"}'
 # Define the curl command with necessary headers
 curl_command="curl '${url}' \
   -H 'Accept-Language: en-GB,en-US;q=0.9,en;q=0.8' \
